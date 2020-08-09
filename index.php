@@ -1,5 +1,11 @@
 <?php
-    
+    include_once("classes/User.php");
+    include_once("classes/Transaction.php");
+
+    session_start();
+    if(!isset($_SESSION["user"])){
+        header("Location: login.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
