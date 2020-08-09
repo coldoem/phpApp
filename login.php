@@ -14,14 +14,8 @@
     <title>Log In</title>
 </head>
 <body>
-    <div class="nav">
-        
-    </div>
     <div class="main">
-    
-    </div>
-    <div class="footer">
-    
+        <!-- Log in form -->
     </div>
 </body>
 </html>

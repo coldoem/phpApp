@@ -13,14 +13,8 @@
     <title>Register</title>
 </head>
 <body>
-    <div class="nav">
-    
-    </div>
     <div class="main">
-    
-    </div>
-    <div class="footer">
-    
+        <!-- Register form -->
     </div>
 </body>
 </html>

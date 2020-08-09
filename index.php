@@ -16,14 +16,13 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="nav">
-    
+    <div class="top">
+        <!-- current saldo -->
+        <!-- ?user information? -->
     </div>
     <div class="main">
-    
-    </div>
-    <div class="footer">
-    
+        <!-- Transaction button / options -->
+        <!-- List of of previous Transactions -->
     </div>
 </body>
 </html>
