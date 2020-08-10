@@ -32,6 +32,8 @@
                 <input type="text" id="password" name="password" placeholder="********">
                 <input type="submit" value="Log In">
             </form>
+            <h4>Don't have an account yet?</h4>
+            <p><a href="register.php">Register here</a></p>
         </div>
     </body>
 </html>

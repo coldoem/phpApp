@@ -2,8 +2,8 @@
 
 const SETTINGS = [
     "db" => [
-        "user"      => "admin",
-        "password"  => "root",
+        "user"      => "root",
+        "password"  => "",
         "host"      => "localhost",
         "dbname"    => "herexamen"
     ]

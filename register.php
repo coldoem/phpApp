@@ -1,8 +1,17 @@
 <?php
     include_once("classes/User.php");
     include_once("classes/Transaction.php");
+    include_once("classes/Db.php");
 
     session_start();
+
+    if(!empty($_POST)){
+        $user = new User();
+        $user->setEmail($_POST["email"]);
+        $user->setPassword($_POST["password"]);
+        $user->setName($_POST["name"]);
+        $user->setVerified(false);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +23,15 @@
     </head>
     <body>
         <div class="main">
-            <!-- Register form -->
+            <form action="" method="post">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" placeholder="example@student.thomasmore.be">
+                <label for="password">Password:</label>
+                <input type="text" id="password" name="password" placeholder="********">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Bob Bobinson">
+                <input type="submit" value="Register">
+            </form>
         </div>
     </body>
 </html>

@@ -36,9 +36,26 @@
             return $this;
         }
 
+        public function saveNewUser(){
+            $conn =  Db::getConnection();
+            //check if email is already in use first
+            $stmnt = $conn->prepare("select email from users where email = :email");
+            $stmnt->bindValue(":email", $this->getEmail());
+            $stmnt->execute();
+            $result =$stmnt->fetch(PDO::FETCH_ASSOC);
+
+            if(!$result){
+                $statement = $conn->prepare("INSERT INTO users (email, password, name, verified) VALUES (:email, :password, :name, :verified)");
+                $statement->execute();
+                return "Register succesfull";
+            }else{
+                return "Invalid email";
+            }            
+        }
+
         public function canLogin($email, $password){
             $conn =  Db::getConnection();
-            $statement = $conn->prepare("select * FROM users where email VALUES :email");
+            $statement = $conn->prepare("select * FROM users where email = :email");
             $statement->bindValue(":email", $email);
             $statement->execute();
 
