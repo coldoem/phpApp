@@ -5,7 +5,13 @@
     session_start();
 
     if(!empty($_POST)){
-        
+        $user = new User;
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+
+        if($user->canLogin($email, $password)){
+            // do things
+        }
     }
 ?>
 <!DOCTYPE html>

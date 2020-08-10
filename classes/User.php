@@ -33,5 +33,11 @@
             $this->email = $verified;
             return $this;
         }
+
+        public function canLogin($email, $password){
+            
+
+            return false;
+        }
     }
 ?>
