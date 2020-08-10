@@ -5,6 +5,7 @@
         private $email;
         private $password;
         private $name;
+        private $saldo;
         private $verified;
 
         public function getEmail(){
@@ -15,6 +16,9 @@
         }
         public function getName(){
             return $this->name;
+        }
+        public function getSaldo(){
+            return $this->saldo;
         }
         public function getVerified(){
             return $this->verified;
@@ -35,6 +39,10 @@
         }
         public function setName($name){
             $this->email = $name;
+            return $this;
+        }
+        public function setSaldo($saldo){
+            $this->saldo = $saldo;
             return $this;
         }
         public function setVerified($verified){
