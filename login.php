@@ -10,7 +10,7 @@
         $password = $_POST["password"];
 
         if($user->canLogin($email, $password)){
-            // do things
+            echo "yeet";
         }
     }
 ?>

@@ -1,4 +1,6 @@
 <?php
+    include_once("Db.php");
+
     class User{
         private $email;
         private $password;
@@ -35,9 +37,18 @@
         }
 
         public function canLogin($email, $password){
-            
+            $conn =  Db::getConnection();
+            $statement = $conn->prepare("select * FROM users where email VALUES :email");
+            $statement->bindValue(":email", $email);
+            $statement->execute();
 
-            return false;
+            $checkingUser = $statement->fetchAll(PDO::FETCH_ASSOC);
+            
+            if(password_verify($password, $checkingUser["password"])){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 ?>
