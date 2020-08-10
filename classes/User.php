@@ -20,12 +20,18 @@
             return $this->verified;
         }
         public function setEmail($email){
-            $this->email = $email;
-            return $this;
+            if(strpos($email, "@student.thomasmore.be")){
+                $this->email = $email;
+                return $this;
+            }
+            return "invalid email";
         }
         public function setPassword($password){
-            $this->email = $password;
-            return $this;
+            if(strlen($password) >= 5){
+                $this->email = $password;
+                return $this;
+            }
+            return "invalid password";
         }
         public function setName($name){
             $this->email = $name;
