@@ -4,13 +4,21 @@
     include_once("classes/Db.php");
 
     session_start();
-
+    $result = "";
     if(!empty($_POST)){
         $user = new User();
-        $user->setEmail($_POST["email"]);
-        $user->setPassword($_POST["password"]);
-        $user->setName($_POST["name"]);
-        $user->setVerified(false);
+        try{
+            $user->setEmail($_POST["email"]);
+            $user->setPassword($_POST["password"]);
+            $user->setName($_POST["name"]);
+            $user->setVerified(false);
+            $result = $user->saveNewUser();
+        }catch(Exception $e){
+            $result = $e->getMessage();
+        }
+
+        $test = $user->getUser($_POST["email"]);
+        var_dump($test);
     }
 ?>
 <!DOCTYPE html>
@@ -23,6 +31,9 @@
     </head>
     <body>
         <div class="main">
+            <div class="resultView">
+                <?php echo $result; ?>
+            </div>
             <form action="" method="post">
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" placeholder="example@student.thomasmore.be">

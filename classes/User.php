@@ -28,14 +28,14 @@
                 $this->email = $email;
                 return $this;
             }
-            return "invalid email";
+            throw new exception ("invalid email");
         }
         public function setPassword($password){
             if(strlen($password) >= 5){
                 $this->email = $password;
                 return $this;
             }
-            return "invalid password";
+            throw new exception ("invalid password");
         }
         public function setName($name){
             $this->email = $name;
@@ -50,6 +50,15 @@
             return $this;
         }
 
+        public function getUser($email){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("select * from users where email = :email");
+            $statement->bindValue(":email", $email);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
         public function saveNewUser(){
             $conn =  Db::getConnection();
             //check if email is already in use first
@@ -59,9 +68,7 @@
             $result =$stmnt->fetch(PDO::FETCH_ASSOC);
 
             if(!$result){
-                $statement = $conn->prepare("INSERT INTO users 
-                    (email, password, name, saldo, verified) 
-                    VALUES (:email, :password, :name, :saldo, :verified)");
+                $statement = $conn->prepare("INSERT INTO users (email, password, name, saldo, verified) VALUES (:email, :password, :name, :saldo, :verified)");
                 $statement->bindValue(":email", $this->getEmail());
                 $statement->bindValue(":password", $this->getPassword());
                 $statement->bindValue(":name", $this->getName());
@@ -71,7 +78,7 @@
                 $statement->execute();
                 return "Register succesfull";
             }else{
-                return "Invalid email";
+                throw new exception ("email already in use");
             }            
         }
 
