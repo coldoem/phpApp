@@ -59,7 +59,15 @@
             $result =$stmnt->fetch(PDO::FETCH_ASSOC);
 
             if(!$result){
-                $statement = $conn->prepare("INSERT INTO users (email, password, name, verified) VALUES (:email, :password, :name, :verified)");
+                $statement = $conn->prepare("INSERT INTO users 
+                    (email, password, name, saldo, verified) 
+                    VALUES (:email, :password, :name, :saldo, :verified)");
+                $statement->bindValue(":email", $this->getEmail());
+                $statement->bindValue(":password", $this->getPassword());
+                $statement->bindValue(":name", $this->getName());
+                $statement->bindValue(":saldo", $this->getSaldo());
+                $statement->bindValue(":verified", false);
+                
                 $statement->execute();
                 return "Register succesfull";
             }else{
