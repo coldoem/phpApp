@@ -55,8 +55,10 @@
             $statement = $conn->prepare("select * from users where email = :email");
             $statement->bindValue(":email", $email);
             $statement->execute();
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            $this->setName($result["name"]);
+            $this->setSaldo($result["saldo"]);
+            $this->setEmail($result["email"]);
         }
 
         public function saveNewUser($gEmail, $gPassword, $gName){

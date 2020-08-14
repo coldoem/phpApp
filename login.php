@@ -10,7 +10,7 @@
         $password = $_POST["password"];
 
         if($user->canLogin($email, $password)){
-            $_SESSION["user"] = $user;
+            $_SESSION["user"] = $email;
             header("Location: index.php");
         }else{
             $response = "invalid credentials";
