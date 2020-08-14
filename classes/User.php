@@ -59,27 +59,73 @@
             return $result;
         }
 
-        public function saveNewUser(){
+        public function saveNewUser($gEmail, $gPassword, $gName){
+            /* pdo not working
+            try{
+                $conn =  Db::getConnection();
+                $statement = $conn->prepare("INSERT INTO users(`email`, `password`, `name`, `verified`) VALUES (:email, :password, :name, :verified)");
+                
+                $email = $this->getEmail();
+                $password = $this->getPassword();
+                $name = $this->getName();
+                $verified = $this->getVerified();
+
+                $statement->bindParam(":email", $email);
+                $statement->bindParam(":password", $password);
+                $statement->bindParam(":name", $name);
+                $statement->bindParam(":verified", $verified);
+
+                $result = $statement->execute();
+                if(!$result){
+                    return $conn->errorInfo();
+                } else{
+                    return $result;
+                }
+            } catch(PDOException $e){
+                return $e;
+            }
+            */
+            $conn = new mysqli("localhost", "root", "root", "herexamen");
+
+            $query = "INSERT INTO users (email, password, name, saldo) VALUES 
+            (?, ?, ?, ?)";
+
+            $statement = $conn->prepare($query);
+            $statement->bind_param("sssi", $email, $password, $name, $saldo);
+
+            if(strpos($gEmail, "@student.thomasmore.be")){
+                $email = $gEmail;
+            }else{
+                throw new exception ("invalid email");
+            }
+
+            if(strlen($gPassword) >= 5){
+                $password = $gPassword;
+            }else{
+                throw new exception ("invalid password");
+            }
+
+            $name = $gName;
+            $saldo = 10;
+
+            if($statement->execute()){
+                return "succes";
+            }else{
+                return "error:" . mysqli_error($conn);
+            }
+
+            mysqli_close($conn);
+        }
+
+        public function emailCheck($email){
             $conn =  Db::getConnection();
-            //check if email is already in use first
             $stmnt = $conn->prepare("select email from users where email = :email");
-            $stmnt->bindValue(":email", $this->getEmail());
+
+            $stmnt->bindValue(":email", $email);
             $stmnt->execute();
             $result =$stmnt->fetch(PDO::FETCH_ASSOC);
 
-            if(!$result){
-                $statement = $conn->prepare("INSERT INTO users (email, password, name, saldo, verified) VALUES (:email, :password, :name, :saldo, :verified)");
-                $statement->bindValue(":email", $this->getEmail());
-                $statement->bindValue(":password", $this->getPassword());
-                $statement->bindValue(":name", $this->getName());
-                $statement->bindValue(":saldo", $this->getSaldo());
-                $statement->bindValue(":verified", false);
-                
-                $statement->execute();
-                return "Register succesfull";
-            }else{
-                throw new exception ("email already in use");
-            }            
+            return $result;
         }
 
         public function canLogin($email, $password){

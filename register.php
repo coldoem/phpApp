@@ -4,21 +4,20 @@
     include_once("classes/Db.php");
 
     session_start();
-    $result = "";
     if(!empty($_POST)){
         $user = new User();
         try{
-            $user->setEmail($_POST["email"]);
-            $user->setPassword($_POST["password"]);
-            $user->setName($_POST["name"]);
-            $user->setVerified(false);
-            $result = $user->saveNewUser();
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+            $name = $_POST["name"];
+            if(!$user->emailCheck($email)){
+                $result = $user->saveNewUser($email, $password, $name);
+            }else{
+                $result = "invalid email";
+            }
         }catch(Exception $e){
-            $result = $e->getMessage();
+            $result = "error: " . $e->getMessage();
         }
-
-        $test = $user->getUser($_POST["email"]);
-        var_dump($test);
     }
 ?>
 <!DOCTYPE html>
@@ -32,7 +31,9 @@
     <body>
         <div class="main">
             <div class="resultView">
-                <?php echo $result; ?>
+                <?php if(isset($result)){
+                    echo($result);
+                } ?>
             </div>
             <form action="" method="post">
                 <label for="email">Email:</label>
