@@ -10,7 +10,10 @@
         $password = $_POST["password"];
 
         if($user->canLogin($email, $password)){
-            echo "yeet";
+            $_SESSION["user"] = $user;
+            header("Location: index.php");
+        }else{
+            $response = "invalid credentials";
         }
     }
 ?>
@@ -23,6 +26,9 @@
         <title>Log In</title>
     </head>
     <body>
+        <?php if(isset($response)){
+            echo $response;
+        } ?>
         <div class="main">
             <!-- Log in form -->
             <form action="" method="post">

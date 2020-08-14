@@ -134,9 +134,15 @@
             $statement->bindValue(":email", $email);
             $statement->execute();
 
-            $checkingUser = $statement->fetchAll(PDO::FETCH_ASSOC);
-            
+            $checkingUser = $statement->fetch(PDO::FETCH_ASSOC);
+            /* for later
             if(password_verify($password, $checkingUser["password"])){
+                return true;
+            }else{
+                return false;
+            }
+            */
+            if($checkingUser["password"] == $password){
                 return true;
             }else{
                 return false;
