@@ -27,12 +27,23 @@
         </div>
         <div class="top">
             <!-- current saldo -->
-            <?php echo $currentSaldo; ?>
+            <h2>Current Saldo:</h2>
+            <h1><?php echo $currentSaldo; ?></h1>
             <!-- ?user information? -->
         </div>
         <div class="main">
             <!-- Transaction button / options -->
+            <form action="" method="post">
+                <label for="searchBar">Find user:</label>
+                <input type="text" id="searchBar" name="searchBar" placeholder="example person">
+                <input type="submit" value="Search">
+            </form>
             <!-- List of of previous Transactions -->
+            <?php //transaction feed foreach start ?>
+            <div class="transactionFeedItem">
+                <p><?php //placeholder example?>Will Smith heeft u 10 tokens gestuurd op: 7 augustus 2020</p>
+            </div>
+            <?php //endforeach ?>
         </div>
     </body>
 </html>
