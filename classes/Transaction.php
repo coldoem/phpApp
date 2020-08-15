@@ -44,16 +44,6 @@
             return $this;
         }
 
-        public function getRecentTransactions($email){
-            $conn = Db::getConnection();
-            $statement = $conn->prepare("select * from transactions where fromUser = :fromUser");
-            $thisUser = $email;
-            $statement->bindValue(":fromUser", $thisUser);
-            $statement->execute();
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
-        }
-
         public function newTransaction(){
 
         }

@@ -11,8 +11,8 @@
     $user->getUser($_SESSION["user"]);
     $currentSaldo = $user->getSaldo();
 
-    $thisUserEmail = $user->getEmail();
     
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
