@@ -38,9 +38,7 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
     </head>
     <body>
-        <div class="logout">
-            <a href="logout.php">Log Out</a>
-        </div>
+        <a href="logout.php" class="logout"><div>Log Out</div></a>
         <div class="top">
             <!-- current saldo -->
             <h2>Current Saldo:</h2>
