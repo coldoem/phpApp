@@ -12,6 +12,14 @@
     $currentSaldo = $user->getSaldo();
 
     $recentTransactions = $user->getRecentTransactions();
+
+    if(!empty($_POST["amount"])){
+        if(!empty($_POST["details"])){
+
+        }else{
+            $detailsMessage = true;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,11 +43,23 @@
         </div>
         <div class="main">
             <!-- Transaction button / options -->
+            <h2>Make new Transaction:</h2>
             <form action="" method="post">
                 <label for="searchBar">Find user:</label>
                 <input type="text" id="searchBar" name="searchBar" placeholder="example person">
                 <input type="submit" value="Search">
             </form>
+            <?php if(!empty($_POST)) : ?>
+                <form action="" method="post">
+                    <label for="amount">Amount:</label>
+                    <input type="number" min="1" name="amount" value="1">
+                    <br>
+                    <label for="details">Add a reason:</label>
+                    <input type="text" name="details" placeholder="For the lovely bottle of Wine.">
+                    <br>
+                    <input type="submit" value="Send">
+                </form>
+            <?php endif; ?>
             <!-- List of of previous Transactions -->
             <div class="transactionFeed">
                 <?php foreach($recentTransactions as $transaction) : ?>
