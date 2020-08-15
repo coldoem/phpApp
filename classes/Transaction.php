@@ -45,6 +45,18 @@
         }
 
         public function newTransaction(){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("insert into transactions (fromUser, toUser, amount) VALUES (:fromUser, :toUser, :amount)");
+
+            $fromUser = $this->getFromUser();
+            $toUser = $this->getToUser();
+            $amount = $this->getAmount();
+
+            $statement->bindValue(":fromUser", $fromUser);
+            $statement->bindValue(":toUser", $toUser);
+            $statement->bindValue(":amount", $amount);
+
+            $statement->execute();
             
         }
     }
