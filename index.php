@@ -11,8 +11,7 @@
     $user->getUser($_SESSION["user"]);
     $currentSaldo = $user->getSaldo();
 
-    
-
+    $recentTransactions = $user->getRecentTransactions();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,11 +42,11 @@
             </form>
             <!-- List of of previous Transactions -->
             <div class="transactionFeed">
-                <?php //transaction feed foreach start ?>
+                <?php foreach($recentTransactions as $transaction) : ?>
                 <div class="transactionFeedItem">
                     <p><?php //placeholder example?>Will Smith heeft u 10 tokens gestuurd op: 7 augustus 2020</p>
                 </div>
-                <?php //endforeach ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </body>

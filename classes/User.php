@@ -151,10 +151,10 @@
             }
         }
 
-        public function getRecentTransactions($email){
+        public function getRecentTransactions(){
             $conn = Db::getConnection();
             $statement = $conn->prepare("select * from transactions where fromUser = :fromUser");
-            $thisUser = $email;
+            $thisUser = $this->getEmail();
             $statement->bindValue(":fromUser", $thisUser);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);

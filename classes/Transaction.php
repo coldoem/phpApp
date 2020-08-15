@@ -45,7 +45,7 @@
         }
 
         public function newTransaction(){
-
+            
         }
     }
 ?>
