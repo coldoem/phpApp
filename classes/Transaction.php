@@ -1,4 +1,6 @@
 <?php
+    include_once("Db.php");
+
     class Transaction{
         private $fromUser;
         private $toUser;
@@ -40,6 +42,20 @@
         public function setDetails($details){
             $this->details = $details;
             return $this;
+        }
+
+        public function getRecentTransactions($email){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("select * from transactions where fromUser = :fromUser");
+            $thisUser = $email;
+            $statement->bindValue(":fromUser", $thisUser);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+        public function newTransaction(){
+
         }
     }
 ?>
