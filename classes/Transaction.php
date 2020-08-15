@@ -57,7 +57,6 @@
             $statement->bindValue(":amount", $amount);
 
             $statement->execute();
-            
         }
     }
 ?>
