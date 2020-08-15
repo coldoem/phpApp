@@ -22,7 +22,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/ihateCashedCSS.css">
         <title>Log In</title>
     </head>
     <body>
@@ -31,11 +31,13 @@
         } ?>
         <div class="main">
             <!-- Log in form -->
-            <form action="" method="post">
+            <form action="" method="post" class="loginForm">
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" placeholder="example@student.thomasmore.be">
+                <br>
                 <label for="password">Password:</label>
                 <input type="text" id="password" name="password" placeholder="********">
+                <br>
                 <input type="submit" value="Log In">
             </form>
             <h4>Don't have an account yet?</h4>
