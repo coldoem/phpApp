@@ -41,3 +41,11 @@ body{
 .logout:hover{
     background-color: #99f3ff;
 }
+.form{
+    text-align: left;
+}
+#email, #password, #name{
+    width: 100%;
+    display: block;
+    color: black;
+}

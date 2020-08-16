@@ -25,7 +25,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/style2.css">
+        <link rel="stylesheet" href="css/style.css">
         <title>Register</title>
     </head>
     <body>
@@ -35,7 +35,7 @@
                     echo($result);
                 } ?>
             </div>
-            <form action="" method="post">
+            <form action="" method="post" class="form">
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" placeholder="example@student.thomasmore.be">
                 <label for="password">Password:</label>

@@ -44,3 +44,8 @@ body{
 .loginForm{
     text-align: left;
 }
+#email, #password, #name{
+    width: 100%;
+    display: block;
+    color: black;
+}
