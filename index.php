@@ -13,9 +13,7 @@
 
     $recentTransactions = $user->getRecentTransactions();
 
-    if(!empty($_POST)){
-
-    }
+    $validTarget = false;
 
     /*if(!empty($_POST["amount"])){
         if(!empty($_POST["details"])){
@@ -26,6 +24,18 @@
             $detailsMessage = true;
         }
     }*/
+
+    if(!empty($_POST)){
+        $input = $_POST["input"];
+
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("select name from users where name like :input");
+        $statement->bindValue(":input", $input);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        return $result;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +46,19 @@
         <title>Home</title>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#searchBar").keyup(function(){
+                    var input = $(this).val();
+
+                    if(input != ""){
+                        $.post("transactionPage.php", {input : input}, function(result){
+                            $("#ajaxResponseHolder").html(result);
+                        });
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <a href="logout.php" class="logout"><div>Log Out</div></a>
@@ -48,13 +71,14 @@
         <div class="main">
             <!-- Transaction button / options -->
             <h2>Make new Transaction:</h2>
-            <form action="" method="post">
+            <form action="" method="post" class="transactionForm">
                 <label for="searchBar">Find user:</label>
                 <input type="text" id="searchBar" name="searchBar" placeholder="example person">
-                <input type="submit" value="Search">
+                <input type="submit" value="Select">
             </form>
+            <h4 id="ajaxResponseHolder"></h4>
             <?php if(!empty($_POST) && $validTarget) : ?>
-                <form action="" method="post">
+                <form action="" method="post" class="transactionForm">
                     <label for="amount">Amount:</label>
                     <input type="number" min="1" name="amount" value="1">
                     <br>
