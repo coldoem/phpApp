@@ -15,7 +15,9 @@
         if(!$result){
             echo "no users found";
         }else{
-            echo $result;
+            foreach($result as $option){
+                echo $option["name"];
+            }
         }
     }else{
         header("Location: index.php");

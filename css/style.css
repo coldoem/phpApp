@@ -48,8 +48,13 @@ a:visited{
 .logout:hover{
     background-color: #99f3ff;
 }
-.form{
+form{
     text-align: left;
+    width: 60%;
+    margin: auto;
+}
+form input, form label{
+    width: 100%;
 }
 #email, #password, #name{
     width: 100%;
@@ -67,4 +72,10 @@ a:visited{
 }
 .transactionForm{
     
+}
+ul{
+    list-style: none;
+}
+li:hover{
+    cursor: pointer;
 }

@@ -36,15 +36,24 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
         <script>
             $(document).ready(function(){
+                ("#transactionForm").toggle();
                 $("#searchBar").keyup(function(){
                     var input = $(this).val();
+                    $("#ajaxResponseHolder li").remove();
 
                     if(input != "" && input.length > 2){
                         $.post("transactionPage.php", {input : input}, function(result){
                             $("#ajaxResponseHolder li").remove();
+
+                            $("#ajaxResponseHolder").append("<li>" + result + "</li>");
                             
-                            $.each(result, function(index, value){
+                            $(result).each(function(index, value){
                                 $("#ajaxResponseHolder").append("<li>" + value + "</li>");
+                            });
+                            $("#ajaxResponseHolder li").click(function(){
+                                $("#ajaxResponseHolder li").remove();
+                                $("#searchBar").value(result);
+                                ("#transactionForm").toggle();
                             });
                         });
                     }
@@ -68,17 +77,15 @@
                 <input type="text" id="searchBar" name="searchBar" placeholder="example person">
             </form>
             <ul id="ajaxResponseHolder"></ul>
-            <?php if(!empty($_POST) && $validTarget) : ?>
-                <form autocomplete="off" action="" method="post" class="transactionForm">
-                    <label for="amount">Amount:</label>
-                    <input type="number" min="1" name="amount" value="1">
-                    <br>
-                    <label for="details">Add a reason:</label>
-                    <input type="text" name="details" placeholder="For the lovely bottle of Wine.">
-                    <br>
-                    <input type="submit" value="Send">
-                </form>
-            <?php endif; ?>
+            <form autocomplete="off" action="" method="post" class="transactionForm">
+                <label for="amount">Amount:</label>
+                <input type="number" min="1" name="amount" value="1">
+                <br>
+                <label for="details">Add a reason:</label>
+                <input type="text" name="details" placeholder="For the lovely bottle of Wine.">
+                <br>
+                <input type="submit" value="Send">
+            </form>
             <!-- List of of previous Transactions -->
             <div class="transactionFeed">
                 <?php foreach($recentTransactions as $transaction) : ?>
