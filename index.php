@@ -47,7 +47,7 @@
                     $("#ajaxResponseHolder li").remove();
 
                     if(input != "" && input.length > 2){
-                        $.post("transactionPage.php", {input : input}, function(result){
+                        $.post("formAjax.php", {input : input}, function(result){
                             $("#ajaxResponseHolder li").remove();
 
                             $("#ajaxResponseHolder").append("<li>" + result + "</li>");

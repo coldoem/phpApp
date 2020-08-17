@@ -1,21 +1,11 @@
 <?php
     if(!empty($_POST)){
-        if(isset($_POST["dummyTransaction"])){
-            //ask for details
-            
-            //create dummy transaction
-        }
-        if(isset($_POST["dummyUser"])){
-            //ask for details?
-            //create dummy user
-        }
-        if(isset($_POST["addSaldo"])){
-            //ask for amount
-            //add saldo
-        }
-        if(isset($_POST["removeSaldo"])){
-            //ask for amount
-            //remove saldo
+        if(!empty($_POST)){
+            $transaction = new Transaction();
+            $transaction->setFromUser($_POST["from"]);
+            $transaction->setToUser($_POST["to"]);
+            $transaction->setAmount($_POST["amount"]);
+            $transaction->setDetails($_POST["details"]);
         }
     }
 ?>
