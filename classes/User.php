@@ -56,15 +56,29 @@
             
             try{
                 $conn =  Db::getConnection();
-                $statement = $conn->prepare("INSERT INTO users(`email`, `password`, `name`) VALUES (:email, :password, :name)");
+                $statement = $conn->prepare("INSERT INTO users(`email`, `password`, `name`, 'saldo') VALUES (:email, :password, :name, :saldo)");
                 
-                $email = $this->getEmail();
-                $password = $this->getPassword();
-                $name = $this->getName();
+                //$this->getMail() not working, same with others so using a shitty fix
+
+                if(strpos($gEmail, "@student.thomasmore.be")){
+                    $email = $gEmail;
+                }else{
+                    throw new exception ("invalid email");
+                }
+
+                if(strlen($gPassword) >= 5){
+                    $password = $gPassword;
+                }else{
+                    throw new exception ("invalid password");
+                }
+
+                $name = $gName;
+                $saldo = 10;
 
                 $statement->bindValue(":email", $email);
                 $statement->bindValue(":password", $password);
                 $statement->bindValue(":name", $name);
+                $statement->bindValue(":saldo", $saldo);
 
                 $result = $statement->execute();
                 if(!$result){
