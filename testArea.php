@@ -1,4 +1,6 @@
 <?php
+    include_once("classes/User.php");
+    include_once("classes/Transaction.php");
     if(!empty($_POST)){
         if(!empty($_POST)){
             $transaction = new Transaction();
@@ -6,6 +8,10 @@
             $transaction->setToUser($_POST["to"]);
             $transaction->setAmount($_POST["amount"]);
             $transaction->setDetails($_POST["details"]);
+
+            $success = $transaction->newTransaction();
+
+            var_dump($success);
         }
     }
 ?>
