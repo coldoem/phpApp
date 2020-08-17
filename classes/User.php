@@ -6,7 +6,6 @@
         private $password;
         private $name;
         private $saldo;
-        private $verified;
 
         public function getEmail(){
             return $this->email;
@@ -19,9 +18,6 @@
         }
         public function getSaldo(){
             return $this->saldo;
-        }
-        public function getVerified(){
-            return $this->verified;
         }
         public function setEmail($email){
             if(strpos($email, "@student.thomasmore.be")){
@@ -45,11 +41,6 @@
             $this->saldo = $saldo;
             return $this;
         }
-        public function setVerified($verified){
-            $this->email = $verified;
-            return $this;
-        }
-
         public function getUser($email){
             $conn = Db::getConnection();
             $statement = $conn->prepare("select * from users where email = :email");
