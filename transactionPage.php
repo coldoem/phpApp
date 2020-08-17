@@ -10,12 +10,12 @@
         $statement = $conn->prepare("select name from users where name like :input");
         $statement->bindValue(":input", $input);
         $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         if(!$result){
             echo "no users found";
         }else{
-            echo $result["name"];
+            echo $result;
         }
     }else{
         header("Location: index.php");

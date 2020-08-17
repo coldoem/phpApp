@@ -39,9 +39,13 @@
                 $("#searchBar").keyup(function(){
                     var input = $(this).val();
 
-                    if(input != ""){
+                    if(input != "" && input.length > 2){
                         $.post("transactionPage.php", {input : input}, function(result){
-                            $("#ajaxResponseHolder").html(result);
+                            $("#ajaxResponseHolder li").remove();
+                            
+                            $.each(result, function(index, value){
+                                $("#ajaxResponseHolder").append("<li>" + value + "</li>");
+                            });
                         });
                     }
                 });
@@ -63,7 +67,7 @@
                 <label for="searchBar">Find user:</label>
                 <input type="text" id="searchBar" name="searchBar" placeholder="example person">
             </form>
-            <h4 id="ajaxResponseHolder"></h4>
+            <ul id="ajaxResponseHolder"></ul>
             <?php if(!empty($_POST) && $validTarget) : ?>
                 <form autocomplete="off" action="" method="post" class="transactionForm">
                     <label for="amount">Amount:</label>
