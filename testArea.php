@@ -1,8 +1,19 @@
 <?php
     include_once("classes/User.php");
     include_once("classes/Transaction.php");
+    include_once("classes/Db.php");
+
+    session_start();
+    if(!isset($_SESSION["user"])){
+        header("Location: login.php");
+    }
+    //set this user
+    $user = new User();
+    $user->getUser($_SESSION["user"]);
+    $currentSaldo = $user->getSaldo();
+
     if(!empty($_POST)){
-        if(!empty($_POST)){
+        if($_POST["type"] == "transaction"){
             $transaction = new Transaction();
             $transaction->setFromUser($_POST["from"]);
             $transaction->setToUser($_POST["to"]);
@@ -12,6 +23,20 @@
             $success = $transaction->newTransaction();
 
             var_dump($success);
+        }else{
+            $previousSaldo = $user->getSaldo();
+            
+            if($_POST["subtract"]){
+                $saldo = $previousSaldo - $amount;
+            }else{
+                $saldo = $previousSaldo + $amount;
+            }
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("update users set saldo = :amount where email = :email");
+            $statement->bindValue(":amount", $saldo);
+            $statement->bindValue(":email", $_SESSION["user"]);
+            $statement->execute();
+
         }
     }
 ?>
@@ -44,13 +69,13 @@
         <label for="from">For:</label>
         <input type="text" name="for" id="for" placeholder="for">
         <br>
-        <label for="from">Amount:</label>
+        <label for="amount">Amount:</label>
         <input type="number" name="amount" id="amount">
         <br>
-        <label for="from">Subtract:</label>
+        <label for="subtract">Subtract:</label>
         <input type="checkbox" name="sub" id="sub">
         <br>
-        <input type="hidden" name="type" value="transaction">
+        <input type="hidden" name="type" value="add">
         <input type="submit" value="Execute">
     </form>
 </body>
