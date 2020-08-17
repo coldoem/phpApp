@@ -2,8 +2,7 @@
     include_once("classes/User.php");
     include_once("classes/Transaction.php");
     include_once("classes/Db.php");
-
-    session_start();
+    
     if(!empty($_POST)){
         $user = new User();
         try{

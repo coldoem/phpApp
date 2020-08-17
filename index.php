@@ -1,29 +1,19 @@
 <?php
     include_once("classes/User.php");
     include_once("classes/Transaction.php");
-
+    //check if logged in through session
     session_start();
     if(!isset($_SESSION["user"])){
         header("Location: login.php");
     }
-
+    //set this user
     $user = new User();
     $user->getUser($_SESSION["user"]);
     $currentSaldo = $user->getSaldo();
 
     $recentTransactions = $user->getRecentTransactions();
 
-    $validTarget = false;
-
-    /*if(!empty($_POST["amount"])){
-        if(!empty($_POST["details"])){
-            $fromUser = $user->getEmail();
-            $recipient = new User();
-            
-        }else{
-            $detailsMessage = true;
-        }
-    }*/
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
