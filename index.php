@@ -24,19 +24,6 @@
             $detailsMessage = true;
         }
     }*/
-
-    if(!empty($_POST)){
-        $input = $_POST["searchBar"];
-
-        $conn = Db::getConnection();
-        $statement = $conn->prepare("select name from users where name like :input");
-
-        $statement->bindValue(":input", $input);
-        $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-        
-        var_dump($result);
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,14 +59,13 @@
         <div class="main">
             <!-- Transaction button / options -->
             <h2>Make new Transaction:</h2>
-            <form action="" method="post" class="transactionForm">
+            <form autocomplete="off" action="" method="post" class="transactionForm">
                 <label for="searchBar">Find user:</label>
                 <input type="text" id="searchBar" name="searchBar" placeholder="example person">
-                <input type="submit" value="Select">
             </form>
             <h4 id="ajaxResponseHolder"></h4>
             <?php if(!empty($_POST) && $validTarget) : ?>
-                <form action="" method="post" class="transactionForm">
+                <form autocomplete="off" action="" method="post" class="transactionForm">
                     <label for="amount">Amount:</label>
                     <input type="number" min="1" name="amount" value="1">
                     <br>

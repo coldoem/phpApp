@@ -11,8 +11,12 @@
         $statement->bindValue(":input", $input);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
-        
-        return $result;
+
+        if(!$result){
+            echo "no users found";
+        }else{
+            echo $result["name"];
+        }
     }else{
         header("Location: index.php");
     }
