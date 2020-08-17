@@ -103,12 +103,12 @@
             <!-- List of of previous Transactions -->
             <div class="transactionFeed">
                 <?php foreach($recentTransactions as $transaction) : ?>
-                <div class="transactionFeedItem">
+                <a href="transactionDetails.php<?php echo '?transaction=' . $transaction["id"]; ?>"><div class="transactionFeedItem">
                     <p><?php 
                         echo $transaction["fromUser"] . " has send " . $transaction["amount"] . 
-                        " to " . $transaction["toUser"]  . " on " . $transaction["date"];
+                        " to " . $transaction["toUser"];
                     ?></p>
-                </div>
+                </div></a>
                 <?php endforeach; ?>
             </div>
         </div>

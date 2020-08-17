@@ -167,8 +167,9 @@
         public function getRecentTransactions(){
             //fetch all transactions with this user
             $conn = Db::getConnection();
-            $statement = $conn->prepare("select * from transactions where fromUser = :thisUser OR toUser = :thisUser");
-            $thisUser = $this->getEmail();
+            $statement = $conn->prepare(
+            "select * from transactions where fromUser = :thisUser OR toUser = :thisUser order by date desc");
+            $thisUser = $this->getName();
             $statement->bindValue(":thisUser", $thisUser);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);

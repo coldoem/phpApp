@@ -51,10 +51,11 @@
             $previousSaldo = $user->getSaldo();
             
             if($adding){
-                $previousSaldo += $amount;
+                $saldo = $previousSaldo + $amount;
             }else{
-                $previousSaldo -= $amount;
+                $saldo = $previousSaldo - $amount;
             }
+            return $saldo;
         }
 
         public function performTransaction(){
