@@ -53,20 +53,18 @@
         }
 
         public function saveNewUser($gEmail, $gPassword, $gName){
-            /* pdo not working
+            
             try{
                 $conn =  Db::getConnection();
-                $statement = $conn->prepare("INSERT INTO users(`email`, `password`, `name`, `verified`) VALUES (:email, :password, :name, :verified)");
+                $statement = $conn->prepare("INSERT INTO users(`email`, `password`, `name`) VALUES (:email, :password, :name)");
                 
                 $email = $this->getEmail();
                 $password = $this->getPassword();
                 $name = $this->getName();
-                $verified = $this->getVerified();
 
-                $statement->bindParam(":email", $email);
-                $statement->bindParam(":password", $password);
-                $statement->bindParam(":name", $name);
-                $statement->bindParam(":verified", $verified);
+                $statement->bindValue(":email", $email);
+                $statement->bindValue(":password", $password);
+                $statement->bindValue(":name", $name);
 
                 $result = $statement->execute();
                 if(!$result){
@@ -77,7 +75,7 @@
             } catch(PDOException $e){
                 return $e;
             }
-            */
+            /*
             $conn = new mysqli("localhost", "root", "root", "herexamen");
 
             $query = "INSERT INTO users (email, password, name, saldo) VALUES 
@@ -108,6 +106,7 @@
             }
 
             mysqli_close($conn);
+            */
         }
 
         public function emailCheck($email){

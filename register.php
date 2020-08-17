@@ -10,6 +10,9 @@
             $email = $_POST["email"];
             $password = $_POST["password"];
             $name = $_POST["name"];
+            $user->setEmail($email);
+            $user->setPassword($password);
+            $user->setName($name);
             if(!$user->emailCheck($email)){
                 $result = $user->saveNewUser($email, $password, $name);
             }else{
