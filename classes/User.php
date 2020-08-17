@@ -66,46 +66,10 @@
         }
 
         public function saveNewUser($gEmail, $gPassword, $gName){
-            
-            try{
-                $conn =  Db::getConnection();
-                $statement = $conn->prepare("INSERT INTO users(`email`, `password`, `name`, 'saldo') VALUES (:email, :password, :name, :saldo)");
+            $conn =  Db::getConnection();
+            $statement = $conn->prepare("INSERT INTO users(`email`, `password`, `name`, 'saldo') VALUES (:email, :password, :name, :saldo)");
                 
-                //$this->getMail() not working, same with others so using a shitty fix
-
-                if(strpos($gEmail, "@student.thomasmore.be")){
-                    $email = $gEmail;
-                }else{
-                    throw new exception ("invalid email");
-                }
-
-                if(strlen($gPassword) >= 5){
-                    $password = $gPassword;
-                }else{
-                    throw new exception ("invalid password");
-                }
-
-                $name = $gName;
-                $saldo = 10;
-
-                $statement->bindValue(":email", $email);
-                $statement->bindValue(":password", $password);
-                $statement->bindValue(":name", $name);
-                $statement->bindValue(":saldo", $saldo);
-
-                $result = $statement->execute();
-                return $result;
-            } catch(PDOException $e){
-                return $e;
-            }
-            /*
-            $conn = new mysqli("localhost", "root", "root", "herexamen");
-
-            $query = "INSERT INTO users (email, password, name, saldo) VALUES 
-            (?, ?, ?, ?)";
-
-            $statement = $conn->prepare($query);
-            $statement->bind_param("sssi", $email, $password, $name, $saldo);
+            //$this->getMail() not working, same with others so using a shitty fix
 
             if(strpos($gEmail, "@student.thomasmore.be")){
                 $email = $gEmail;
@@ -114,7 +78,7 @@
             }
 
             if(strlen($gPassword) >= 5){
-                $password = $gPassword;
+                $password = password_hash($gPassword, PASSWORD_DEFAULT, ["cost" => 12]);
             }else{
                 throw new exception ("invalid password");
             }
@@ -122,14 +86,13 @@
             $name = $gName;
             $saldo = 10;
 
-            if($statement->execute()){
-                return "succes";
-            }else{
-                return "error:" . mysqli_error($conn);
-            }
+            $statement->bindValue(":email", $email);
+            $statement->bindValue(":password", $password);
+            $statement->bindValue(":name", $name);
+            $statement->bindValue(":saldo", $saldo);
 
-            mysqli_close($conn);
-            */
+            $result = $statement->execute();
+            return $result;
         }
 
         public function emailCheck($email){
@@ -150,14 +113,8 @@
             $statement->execute();
 
             $checkingUser = $statement->fetch(PDO::FETCH_ASSOC);
-            /* for later
+
             if(password_verify($password, $checkingUser["password"])){
-                return true;
-            }else{
-                return false;
-            }
-            */
-            if($checkingUser["password"] == $password){
                 return true;
             }else{
                 return false;
