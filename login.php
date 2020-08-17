@@ -5,15 +5,19 @@
     session_start();
 
     if(!empty($_POST)){
-        $user = new User;
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-
-        if($user->canLogin($email, $password)){
-            $_SESSION["user"] = $email;
-            header("Location: index.php");
+        if(empty($_POST["email"]) || empty($_POST["password"])){
+            $response = "email or password cannot be empty";
         }else{
-            $response = "invalid credentials";
+            $user = new User;
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+
+            if($user->canLogin($email, $password)){
+                $_SESSION["user"] = $email;
+                header("Location: index.php");
+            }else{
+                $response = "invalid credentials";
+            }
         }
     }
 ?>
@@ -26,9 +30,9 @@
         <title>Log In</title>
     </head>
     <body>
-        <?php if(isset($response)){
-            echo $response;
-        } ?>
+        <div class="response">
+            <?php if(isset($response)){ echo $response; } ?>
+        </div>
         <div class="main">
             <!-- Log in form -->
             <form action="" method="post" class="form">
@@ -38,7 +42,7 @@
                 <label for="password">Password:</label>
                 <input type="text" id="password" name="password" placeholder="********">
                 <br>
-                <input type="submit" value="Log In">
+                <input type="submit" value="Log In" class="submit">
             </form>
             <h4>Don't have an account yet?</h4>
             <p><a href="register.php">Register here</a></p>

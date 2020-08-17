@@ -42,7 +42,7 @@
                 <input type="text" id="password" name="password" placeholder="********">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" placeholder="Bob Bobinson">
-                <input type="submit" value="Register">
+                <input type="submit" value="Register" class="submit">
             </form>
         </div>
     </body>
