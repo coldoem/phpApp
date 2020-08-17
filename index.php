@@ -36,7 +36,11 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
         <script>
             $(document).ready(function(){
-                
+                //ajax for updating current saldo
+                function updateSaldo(){
+                    $("#currentSaldo").load("updateSaldo.php", {"email" : "<?Php echo $user->getEmail(); ?>"});
+                }
+                setInterval(updateSaldo, 10000);
                 //ajax for finding transaction target
                 $("#searchBar").keyup(function(){
                     var input = $(this).val();
@@ -66,7 +70,7 @@
         <div class="top">
             <!-- current saldo -->
             <h2>Current Saldo:</h2>
-            <h1><?php echo $currentSaldo; ?></h1>
+            <h1 id="currentSaldo"><?php echo $currentSaldo; ?></h1>
             <!-- ?user information? -->
         </div>
         <div class="main">
