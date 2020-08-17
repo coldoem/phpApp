@@ -13,7 +13,24 @@
 
     $recentTransactions = $user->getRecentTransactions();
 
-    
+    if(!empty($_POST)){
+        $cleared = true;
+        if(empty($_POST["searchBar"])){
+            $cleared = false;
+        }
+        if(empty($_POST["details"])){
+            $cleared = false;
+        }
+        if($cleared){
+            $transaction = new Transaction();
+            $transaction->setFromUser($user->getName());
+            $transaction->setToUser($_POST["searchBar"]);
+            $transaction->setAmount($_POST["amount"]);
+            $transaction->setDetails($_POST["details"]);
+            $transactionResult = $transaction->performTransaction();
+            var_dump($transactionResult);
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,17 +86,20 @@
             <form autocomplete="off" action="" method="post" class="transactionForm">
                 <label for="searchBar">Find user:</label>
                 <input type="text" id="searchBar" name="searchBar" placeholder="example person">
+                <ul id="ajaxResponseHolder"></ul>
+                <div class="transactionForm secondForm">
+                    <label for="amount">Amount:</label>
+                    <input type="number" min="<?php if($currentSaldo > 0){ echo "1";} else{ echo "0";}  ?>" 
+                    max="<?php echo $currentSaldo ?>" name="amount" id="amount" 
+                    value="<?php if($currentSaldo > 0){ echo "1";} else{ echo "0";}  ?>">
+                    <br>
+                    <label for="details">Add a reason:</label>
+                    <input type="text" name="details" id="details" placeholder="For the lovely bottle of Wine.">
+                    <br>
+                    <input type="submit" value="Send">
+                </div>
             </form>
-            <ul id="ajaxResponseHolder"></ul>
-            <form autocomplete="off" action="" method="post" class="transactionForm secondForm">
-                <label for="amount">Amount:</label>
-                <input type="number" min="1" max="<?php echo $currentSaldo ?>" name="amount" id="amount" value="1">
-                <br>
-                <label for="details">Add a reason:</label>
-                <input type="text" name="details" id="details" placeholder="For the lovely bottle of Wine.">
-                <br>
-                <input type="submit" value="Send">
-            </form>
+            <div class="transactionResponse"><?php if(isset($result)){ echo $result; } ?></div>
             <!-- List of of previous Transactions -->
             <div class="transactionFeed">
                 <?php foreach($recentTransactions as $transaction) : ?>

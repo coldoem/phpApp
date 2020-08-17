@@ -1,5 +1,6 @@
 <?php
     include_once("Db.php");
+    include_once("User.php");
 
     class Transaction{
         private $fromUser;
@@ -42,6 +43,34 @@
         public function setDetails($details){
             $this->details = $details;
             return $this;
+        }
+
+        public function calculateSaldo($name, $adding, $amount){
+            $user = new User();
+            $user->getUserFromName($name);
+            $previousSaldo = $user->getSaldo();
+            
+            if($adding){
+                $previousSaldo += $amount;
+            }else{
+                $previousSaldo -= $amount;
+            }
+        }
+
+        public function performTransaction(){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("UPDATE users SET saldo = :newAmount WHERE name = :name");
+            //adjust saldo for sender
+            $senderSaldo = $this->calculateSaldo($this->getFromUser(), false, $this->getAmount());
+            $statement->bindValue(":newAmount", $senderSaldo);
+            $statement->bindValue(":name", $this->getFromUser());
+            $statement->execute();
+
+            //adjust saldo for reciever
+            $recieverSaldo = $this->calculateSaldo($this->getToUser(), true, $this->getAmount());
+            $statement->bindValue(":newAmount", $recieverSaldo);
+            $statement->bindValue(":name", $this->getToUser());
+            $statement->execute();
         }
 
         public function newTransaction(){

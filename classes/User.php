@@ -34,13 +34,26 @@
             throw new exception ("invalid password");
         }
         public function setName($name){
-            $this->email = $name;
+            $this->name = $name;
             return $this;
         }
         public function setSaldo($saldo){
             $this->saldo = $saldo;
             return $this;
         }
+
+        public function getUserFromName($name){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("select * from users where name = :name");
+            $statement->bindValue(":name", $name);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            
+            $this->setName($result["name"]);
+            $this->setSaldo($result["saldo"]);
+            $this->setEmail($result["email"]);
+        }
+
         public function getUser($email){
             $conn = Db::getConnection();
             $statement = $conn->prepare("select * from users where email = :email");
