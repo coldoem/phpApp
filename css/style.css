@@ -70,8 +70,8 @@ form input, form label{
     border-radius: 15px;
     margin: 15px 0;
 }
-.transactionForm{
-    
+.secondForm{
+    display: none;
 }
 ul{
     list-style: none;
