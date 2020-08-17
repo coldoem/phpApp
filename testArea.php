@@ -1,7 +1,8 @@
 <?php
     if(!empty($_POST)){
         if(isset($_POST["dummyTransaction"])){
-            //ask for details?
+            //ask for details
+            
             //create dummy transaction
         }
         if(isset($_POST["dummyUser"])){
@@ -27,17 +28,17 @@
 </head>
 <body>
     <form action="" method="post">
-        <label for="dummyTransaction">Create Dummy Transaction:</label>
-        <input type="checkbox" name="dummyTransaction" value="1">
+        <label for="transaction">From:</label>
+        <input type="text" name="from" id="from" placeholder="from">
         <br>
-        <label for="dummyTransaction">Create Dummy User:</label>
-        <input type="checkbox" name="dummyUser" value="1">
+        <label for="transaction">To:</label>
+        <input type="text" name="to" id="to" placeholder="from">
         <br>
-        <label for="dummyTransaction">Add Saldo:</label>
-        <input type="checkbox" name="addSaldo" value="1">
+        <label for="transaction">Amount:</label>
+        <input type="number" name="amount" id="amount" value="1">
         <br>
-        <label for="dummyTransaction">Remove Saldo:</label>
-        <input type="checkbox" name="removeSaldo" value="1">
+        <label for="transaction">Details:</label>
+        <input type="text" name="details" id="details" placeholder="details">
         <br>
         <input type="submit" value="Execute">
     </form>
