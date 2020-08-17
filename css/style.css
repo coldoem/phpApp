@@ -55,6 +55,8 @@ a:visited{
     width: 100%;
     display: block;
     color: black;
+    height: 30px;
+    border-radius: 5px;
 }
 .submit{
     width: 75px;

@@ -44,6 +44,8 @@
                 <input type="text" id="name" name="name" placeholder="Bob Bobinson">
                 <input type="submit" value="Register" class="submit">
             </form>
+            <h4>Already have an account?</h4>
+            <p><a href="login.php">Log in here</a></p>
         </div>
     </body>
 </html>
