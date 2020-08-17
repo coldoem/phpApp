@@ -152,13 +152,14 @@
         }
 
         public function getRecentTransactions(){
+            //fetch all transactions with this user
             $conn = Db::getConnection();
             $statement = $conn->prepare("select * from transactions where fromUser = :thisUser OR toUser = :thisUser");
             $thisUser = $this->getEmail();
             $statement->bindValue(":thisUser", $thisUser);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            
+
             return $result;
         }
     }

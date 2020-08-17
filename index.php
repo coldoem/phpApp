@@ -94,7 +94,10 @@
             <div class="transactionFeed">
                 <?php foreach($recentTransactions as $transaction) : ?>
                 <div class="transactionFeedItem">
-                    <p><?php //placeholder example?>Will Smith heeft u 10 tokens gestuurd op: 7 augustus 2020</p>
+                    <p><?php 
+                        echo $transaction["fromUser"] . " has send " . $transaction["amount"] . 
+                        " to " . $transaction["toUser"]  . " on " . $transaction["date"];
+                    ?></p>
                 </div>
                 <?php endforeach; ?>
             </div>
