@@ -81,11 +81,7 @@
                 $statement->bindValue(":saldo", $saldo);
 
                 $result = $statement->execute();
-                if(!$result){
-                    return $conn->errorInfo();
-                } else{
-                    return $result;
-                }
+                return $result;
             } catch(PDOException $e){
                 return $e;
             }

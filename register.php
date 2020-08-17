@@ -35,7 +35,7 @@
         <div class="main">
             <div class="resultView">
                 <?php if(isset($result)){
-                    var_dump($result);
+                    echo($result);
                 } ?>
             </div>
             <form action="" method="post" class="form">
