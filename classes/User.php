@@ -66,7 +66,7 @@
         }
 
         public function saveNewUser($gEmail, $gPassword, $gName){
-            $conn =  Db::getConnection();
+            /*$conn =  Db::getConnection();
             $statement = $conn->prepare("INSERT INTO users(`email`, `password`, `name`, 'saldo') VALUES (:email, :password, :name, :saldo)");
                 
             //$this->getMail() not working, same with others so using a shitty fix
@@ -92,7 +92,37 @@
             $statement->bindValue(":saldo", $saldo);
 
             $result = $statement->execute();
-            return $result;
+            return $result;*/
+            $conn = new mysqli("localhost", "root", "root", "herexamen");
+
+            $query = "INSERT INTO users (email, password, name, saldo) VALUES 
+            (?, ?, ?, ?)";
+
+            $statement = $conn->prepare($query);
+            $statement->bind_param("sssi", $email, $password, $name, $saldo);
+
+            if(strpos($gEmail, "@student.thomasmore.be")){
+                $email = $gEmail;
+            }else{
+                throw new exception ("invalid email");
+            }
+
+            if(strlen($gPassword) >= 5){
+                $password = password_hash($gPassword, PASSWORD_DEFAULT, ["cost" => 12]);
+            }else{
+                throw new exception ("invalid password");
+            }
+
+            $name = $gName;
+            $saldo = 10;
+
+            if($statement->execute()){
+                return "succes";
+            }else{
+                return "error:" . mysqli_error($conn);
+            }
+
+            mysqli_close($conn);
         }
 
         public function emailCheck($email){
