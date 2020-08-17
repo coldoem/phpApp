@@ -26,20 +26,16 @@
     }*/
 
     if(!empty($_POST)){
-        try{
-            $input = $_POST["searchBar"];
+        $input = $_POST["searchBar"];
 
-            $conn = Db::getConnection();
-            $statement = $conn->prepare("select name from users where name like :input");
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("select name from users where name like :input");
 
-            $statement->bindValue(":input", $input);
-            $statement->execute();
-            $result = $statement->fetch(PDO::FETCH_ASSOC);
-            
-            var_dump($result);
-        }catch(Exception $e){
-            var_dump($e->getMessage());
-        }
+        $statement->bindValue(":input", $input);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        var_dump($result);
     }
 ?>
 <!DOCTYPE html>
