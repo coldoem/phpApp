@@ -27,8 +27,8 @@
             $transaction->setToUser($_POST["searchBar"]);
             $transaction->setAmount($_POST["amount"]);
             $transaction->setDetails($_POST["details"]);
-            $transactionResult = $transaction->performTransaction();
-            var_dump($transactionResult);
+            $transaction->performTransaction();
+            $transaction->newTransaction();
         }
     }
 ?>
