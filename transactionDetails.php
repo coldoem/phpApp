@@ -28,6 +28,7 @@
 </head>
 <body>
     <div class="main">
+        <a class="return" href="index.php">Go back</a>
         <h1><?php echo $result["fromUser"]; ?> Has send <?php echo $result["amount"]; ?> coins to <?php echo $result["toUser"]; ?></h1>
         <h3>This transaction occured on: <?php echo $result["date"]; ?></h3>
         <h2>The reason given for this transaction: <?php echo $result["details"]; ?></h2>
